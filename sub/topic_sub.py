@@ -76,6 +76,8 @@ client.on_message = on_message
 # Connect to MQTT Broker
 client.connect(broker, port, keepalive)
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(17, GPIO.OUT)
 # Action to realize
 client.subscribe(topic)
 
