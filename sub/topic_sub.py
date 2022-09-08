@@ -7,7 +7,7 @@ import time
 import RPi.GPIO as GPIO
 from datetime import datetime    # Library to Extract Current Time
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(23, GPIO.OUT)
 
 ########################################################

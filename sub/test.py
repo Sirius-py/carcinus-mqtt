@@ -10,7 +10,7 @@ def on_connect(client, userdata, flags, rc):
 # the callback function, it will be triggered when receiving messages
 def on_message(client, userdata, msg):
     print(f"{msg.topic} {msg.payload}")
-    if "ON" in msg.payload:
+    if b"ON" in msg.payload:
         print("LED ON")
     else:
         print("LED OFF")
