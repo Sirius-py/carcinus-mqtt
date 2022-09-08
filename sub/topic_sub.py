@@ -7,6 +7,7 @@ import time
 import RPi.GPIO as GPIO
 from datetime import datetime    # Library to Extract Current Time
 
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(17, GPIO.OUT)
 
 ########################################################
@@ -76,8 +77,6 @@ client.on_message = on_message
 # Connect to MQTT Broker
 client.connect(broker, port, keepalive)
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(17, GPIO.OUT)
 # Action to realize
 client.subscribe(topic)
 
