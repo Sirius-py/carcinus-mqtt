@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 from datetime import datetime    # Library to Extract Current Time
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(17, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
 
 ########################################################
 # Functions
@@ -25,23 +25,12 @@ def on_connect(client, userdata, flags, rc):
 # Function to Receive data from Broker Subscription
 def on_message(client, userdata, msg):
     
-    # Extract Current Current Time
-    now = datetime.now()    
-    
-    # Display Received Time & Received Message
-    print(now.strftime("%H:%M:%S") + " - MSG: " + str(msg.payload)) #Imprime Trama de Entrada
-    
     if "ON" in msg.payload:
-        GPIO.output(17, GPIO.HIGH)
+        print("LED ON")
+        GPIO.output(23, True)
     elif "OFF" in msg.payload:
-        GPIO.output(17, GPIO.LOW)
-
-    # Finalizing Condition
-    if(int(msg.payload.decode('utf-8'))>= 300):
-        client.flag_end = True
-        client.disconnect()
-    else:
-        client.flag_end = False 
+        print("LED OFF")
+        GPIO.output(23, False)
 
 ########################################################
 # Variables
@@ -84,5 +73,4 @@ client.subscribe(topic)
 
 # Flag Condition of No Finnalization 
 
-if(client.flag_end==False):
-    client.loop_forever()
+client.loop_forever()
