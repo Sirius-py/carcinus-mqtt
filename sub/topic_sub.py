@@ -25,10 +25,10 @@ def on_connect(client, userdata, flags, rc):
 # Function to Receive data from Broker Subscription
 def on_message(client, userdata, msg):
     
-    if "ON" in msg.payload:
+    if b'ON' in msg.payload:
         print("LED ON")
         GPIO.output(23, True)
-    elif "OFF" in msg.payload:
+    elif b'OFF' in msg.payload:
         print("LED OFF")
         GPIO.output(23, False)
 
@@ -41,10 +41,10 @@ mqtt.Client.connected_flag = False
 mqtt.Client.flag_end = False
 
 # MQTT Parameters
-broker="broker.emqx.io"
+broker="test.mosquitto.org"
 port = 1883         
 keepalive = 60      # Maximum time [Sec] with Broker Communication
-topic = "carcinus/raspitest"
+topic = "raspicarcinus/topic"
 
 ########################################################
 # Initial Configuration
