@@ -3,6 +3,7 @@
 # Libraries
 ########################################################
 
+from pickle import TRUE
 import paho.mqtt.client as mqtt  # Library to MQTT Client
 from datetime import datetime    # Library to Extract Current Time
 import random                    # Library to get Random Numbers
@@ -26,8 +27,7 @@ def on_connect(client, userdata, flags, rc):
         print("Bad connection Returned code=",rc)
 
 
-def on_publish(client,userdata,result):             #create function for callback
-    print(datetime.now().strftime("%H:%M:%S") +" - " +str(value) + " - data published \n")    
+def on_publish(client,userdata,result):             #create function for callback 
     pass
 
 ########################################################
@@ -41,7 +41,7 @@ mqtt.Client.connected_flag = False
 broker="test.mosquitto.org"
 port = 1883         
 keepalive = 60      # Maximum time [Sec] with Broker Communication
-topic = "Test/Esp"
+topic = "raspicarcinus/topic"
 
 ########################################################
 # Initial Configuration
@@ -67,19 +67,14 @@ client.connect(broker, port, keepalive)
 # Action to realize
 while (True):
      
-    input_state=GPIO.input(18)
-    if input_state==False:
-        status = client.publish(topic, ON)
+    input_state=GPIO.input(16)
+    if input_state==TRUE:
+        status = client.publish(topic,"ON")
         time.sleep(0.2)
 
     
     
-    # Condition of Finnalization 
-    if(value>= 850):
-        break
-        
-    else:
-        time.sleep(10)
+    
         
 client.disconnect()
 print("End of Publish Data")
