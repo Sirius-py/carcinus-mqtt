@@ -3,7 +3,11 @@
 ########################################################
 
 import paho.mqtt.client as mqtt  # Library to MQTT Client
+import time
+import RPi.GPIO as GPIO
 from datetime import datetime    # Library to Extract Current Time
+
+GPIO.setup(17, GPIO.OUT)
 
 ########################################################
 # Functions
@@ -26,6 +30,11 @@ def on_message(client, userdata, msg):
     # Display Received Time & Received Message
     print(now.strftime("%H:%M:%S") + " - MSG: " + str(msg.payload)) #Imprime Trama de Entrada
     
+    if "ON" in msg.payload:
+        GPIO.output(17, GPIO.HIGH)
+    elif "OFF" in msg.payload:
+        GPIO.output(17, GPIO.LOW)
+
     # Finalizing Condition
     if(int(msg.payload.decode('utf-8'))>= 300):
         client.flag_end = True
@@ -42,10 +51,10 @@ mqtt.Client.connected_flag = False
 mqtt.Client.flag_end = False
 
 # MQTT Parameters
-broker="test.mosquitto.org"
+broker="broker.emqx.io"
 port = 1883         
 keepalive = 60      # Maximum time [Sec] with Broker Communication
-topic = "Test/Esp"
+topic = "carcinus/raspitest"
 
 ########################################################
 # Initial Configuration
