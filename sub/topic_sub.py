@@ -9,6 +9,7 @@ from datetime import datetime    # Library to Extract Current Time
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(23, GPIO.OUT)
+GPIO.setup(24, GPIO.OUT)
 
 ########################################################
 # Functions
@@ -26,11 +27,16 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     
     if b'ON' in msg.payload:
-        print("LED ON")
+        print("Motor 1")
         GPIO.output(23, True)
-    elif b'OFF' in msg.payload:
-        print("LED OFF")
+        time.sleep(5)
         GPIO.output(23, False)
+        
+    elif b'OFF' in msg.payload:
+        print("Motor 2")
+        GPIO.output(24, True)
+        time.sleep(5)
+        GPIO.output(24, True)
 
 ########################################################
 # Variables
