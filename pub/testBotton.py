@@ -14,6 +14,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(16,GPIO.IN,pull_up_down=GPIO.PUD_UP)
+GPIO.setup(12,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 ########################################################
 # Functions
 ########################################################
@@ -70,9 +71,12 @@ while (True):
     input_state=GPIO.input(16)
     if input_state==TRUE:
         status = client.publish(topic,"ON")
-        time.sleep(0.2)
+        time.sleep(2)
 
-    
+    input_state=GPIO.input(12)
+    if input_state==TRUE:
+        status = client.publish(topic,"OFF")
+        time.sleep(2)
     
     
         
