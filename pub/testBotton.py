@@ -71,11 +71,13 @@ while (True):
     input_state=GPIO.input(16)
     if input_state==TRUE:
         status = client.publish(topic,"ON")
+        print("Motor 1 ON")
         time.sleep(2)
 
     input_state=GPIO.input(12)
     if input_state==TRUE:
         status = client.publish(topic,"OFF")
+        print("Motor 2 ON")
         time.sleep(2)
     
     
