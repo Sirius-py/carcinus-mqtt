@@ -14,7 +14,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(16,GPIO.IN,pull_up_down=GPIO.PUD_UP)
-GPIO.setup(7,GPIO.IN,pull_up_down=GPIO.PUD_UP)
+
 ########################################################
 # Functions
 ########################################################
@@ -74,13 +74,6 @@ while (True):
         status = client.publish(topic,"ON")
         print("Motor 1 ON")
         time.sleep(2)
-
-    input_state=GPIO.input(7)
-    if input_state==TRUE:
-        status = client.publish(topic,"OFF")
-        print("Motor 2 ON")
-        time.sleep(2)
-    
     
         
 client.disconnect()
