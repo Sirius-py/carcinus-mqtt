@@ -13,8 +13,10 @@ import RPi.GPIO as GPIO
 import time 
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(16,GPIO.IN,pull_up_down=GPIO.PUD_UP)
-GPIO.setup(12,GPIO.IN,pull_up_down=GPIO.PUD_UP)
+GPIO.setup(1, GPIO.OUT)
+GPIO.setup(16, GPIO.OUT)
+GPIO.setup(20,GPIO.IN,pull_up_down=GPIO.PUD_UP)
+GPIO.setup(7,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 ########################################################
 # Functions
 ########################################################
@@ -67,14 +69,17 @@ client.connect(broker, port, keepalive)
 
 # Action to realize
 while (True):
+    
+    GPIO.output(1, True)
+    GPIO.output(16, True)
      
-    input_state=GPIO.input(16)
+    input_state=GPIO.input(20)
     if input_state==TRUE:
         status = client.publish(topic,"ON")
         print("Motor 1 ON")
         time.sleep(2)
 
-    input_state=GPIO.input(12)
+    input_state=GPIO.input(7)
     if input_state==TRUE:
         status = client.publish(topic,"OFF")
         print("Motor 2 ON")
